@@ -54,27 +54,17 @@ Spendly is a web-based personal finance management application that helps users 
 
 ---
 
-### 📂 REPOSITORY STRUCTURE
-
-```text
-Spendly/
-├── src/main/java/com/spendly/
-│   ├── config/          # JDBC database connection & initialization
-│   ├── dao/             # Data Access Objects (User, Transaction, Budget, Goal, etc.)
-│   ├── model/           # POJO models
-│   ├── runner/          # Standalone embedded Java server runner
-│   ├── service/         # Business logic & export services
-│   └── servlet/         # REST API endpoints & request handlers
-├── WebContent/
-│   ├── css/style.css    # Fintech glassmorphism design system
-│   ├── js/              # Client-side API client, charts, and router
-│   ├── images/          # 3D illustration assets
-│   ├── index.html       # Landing, Login & Signup page
-│   └── dashboard.html   # Main SPA dashboard
-├── database.sql         # Complete MySQL schema & tables
-├── build.bat / .ps1     # One-click automated compilation script
-└── run.bat / .ps1       # Automated server launcher
-```
+### 📂 REPOSITORY STRUCTURE:
+* `WebContent/` — Client-side web application (HTML pages, CSS glassmorphism styles, Chart.js visualizations, 3D illustrations, and client API scripts).
+* `dist/` — Production-ready deployable Web Application Archive (`Spendly.war`).
+* `lib/` — Required Java dependencies (`mysql-connector-j-8.3.0.jar`, `gson-2.10.1.jar`, `javax.servlet-api-4.0.1.jar`).
+* `src/main/` — Java backend architecture (REST Servlets, DAOs, POJO models, business services, and embedded server runner).
+* `database.sql` — Complete MySQL database DDL schema, relational tables, and initial seed categories.
+* `build.bat` / `build.ps1` — Automated Java compilation and WAR packaging scripts for Windows.
+* `run.bat` / `run.ps1` — One-click scripts to launch the standalone local server.
+* `setup_jars.ps1` — Dependency download and setup utility script.
+* `.gitignore` — Git configuration to ignore build artifacts and temporary files.
+* `README.md` — Project documentation, features overview, and setup guide.
 
 ---
 
