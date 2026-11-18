@@ -68,34 +68,19 @@ Spendly is a web-based personal finance management application that helps users 
 
 ---
 
-### 🚀 GETTING STARTED
+### 🚀 GETTING STARTED:
 
-#### 1. Prerequisites
-* **Java Development Kit (JDK 17+)** installed.
-* **MySQL Server** (or XAMPP / MariaDB) running on port 3306.
+1. Prerequisites
+* Java Development Kit (JDK 17+)
+* MySQL Server (port 3306)
 
-#### 2. Database Setup
-Import `database.sql` into MySQL:
+2. Database Setup
 ```bash
 mysql -u root -p < database.sql
 ```
 
-#### 3. Running Locally
-Run the one-click startup script:
-
-**Windows (Command Prompt):**
-```cmd
+3. Running Locally
+```bash
 run.bat
 ```
-
-**Windows (PowerShell):**
-```powershell
-.\run.ps1
-```
-
-Once started, open your browser and navigate to:
-👉 **http://localhost:8085/**
-
----
-
-💡 *Developed to demonstrate full-stack fintech architecture, robust Java servlet REST APIs, dynamic financial data visualizations, and clean responsive glassmorphism UI design.*
+Application runs on http://localhost:8085/
