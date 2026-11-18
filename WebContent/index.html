@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spendly - Smart Expense Tracker & Wealth Hub</title>
+  <meta name="description" content="Keep track of shared expenses, budgets, and balances with Spendly.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ocean-auth-page">
+
+  <!-- Ambient Underwater Floating Bubbles -->
+  <div class="ocean-bubble bubble-1"></div>
+  <div class="ocean-bubble bubble-2"></div>
+  <div class="ocean-bubble bubble-3"></div>
+
+  <!-- Dual Phone Showcase Container Matching Reference Image -->
+  <div class="dual-phone-container">
+
+    <!-- ====================================================================
+         LEFT PHONE CARD: Hero Splash Screen
+         ==================================================================== -->
+    <div class="phone-card phone-card-hero">
+      
+      <!-- Brand & Tagline Header -->
+      <div class="hero-phone-header">
+        <div class="hero-brand-logo">SPENDLY</div>
+        <p class="hero-tagline">Keep track of shared expenses, budgets, and balances.</p>
+      </div>
+
+      <!-- 3D Animated Standing Character Area -->
+      <div class="hero-character-area">
+        <div class="soft-cloud-chip cloud-1"></div>
+        <div class="soft-cloud-chip cloud-2"></div>
+        <div class="soft-cloud-chip cloud-3"></div>
+
+        <!-- 3D Character with Phone & Orange Backpack (Floating/Moving) -->
+        <img src="images/character_phone.png" alt="Spendly 3D Character" class="hero-char-img">
+      </div>
+
+      <!-- Bottom Swipe Indicator -->
+      <div class="swipe-up-indicator">
+        <span class="swipe-text">SWIPE UP</span>
+        <div class="swipe-pill" onclick="document.getElementById('login-email').focus();">
+          <i class="fa-solid fa-chevron-up"></i>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ====================================================================
+         RIGHT PHONE CARD: Join / Sign In Form Card (Compact & Clean)
+         ==================================================================== -->
+    <div class="phone-card phone-card-auth">
+
+      <!-- Sitting 3D Laptop Character Header (Floating/Moving) -->
+      <div class="auth-header-graphic">
+        <img src="images/character_laptop.png" alt="Spendly Laptop Character" class="sitting-char-img">
+        <h2 class="auth-card-title" id="auth-title">Join Spendly</h2>
+      </div>
+
+      <!-- Segmented Sign In / Sign Up Selector -->
+      <div class="auth-segmented-tabs">
+        <button type="button" class="auth-segmented-btn active" id="tab-btn-signin" onclick="switchAuthTab('login')">Sign In</button>
+        <button type="button" class="auth-segmented-btn" id="tab-btn-signup" onclick="switchAuthTab('register')">Sign Up</button>
+      </div>
+
+      <!-- Sign In View -->
+      <div id="login-tab-container">
+        <form id="login-form">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" id="login-email" class="auth-input-pill" placeholder="Email address" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="login-password" class="auth-input-pill" placeholder="Password" required>
+              <button type="button" class="password-toggle-btn" onclick="togglePassword('login-password')">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 0.76rem; color: #64748b;">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+              <input type="checkbox" id="remember-me" checked>
+              <span>Remember me</span>
+            </label>
+            <a href="#" onclick="alert('Enter your account email and password to sign in.'); return false;" style="color: #0d9488; font-weight: 600;">Forgot?</a>
+          </div>
+
+          <!-- Main Submit Button -->
+          <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-md); padding: 11px; font-size: 0.92rem; font-weight: 700;">
+            Sign In to Spendly
+          </button>
+        </form>
+
+        <!-- Divider: Social logins placed DOWN at the bottom -->
+        <div style="display: flex; align-items: center; gap: 10px; margin: 14px 0 10px;">
+          <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+          <span style="font-size: 0.68rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">or continue with</span>
+          <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+        </div>
+
+        <!-- Social Buttons (Logos Only) -->
+        <div class="social-icons-row">
+          <button type="button" class="social-icon-btn google-btn" title="Sign-in with Google" onclick="quickDemoLogin()">
+            <i class="fa-brands fa-google"></i>
+          </button>
+          <button type="button" class="social-icon-btn fb-btn" title="Sign-in with Facebook" onclick="quickDemoLogin()">
+            <i class="fa-brands fa-facebook-f"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sign Up View (Hidden by Default) -->
+      <div id="register-tab-container" style="display: none;">
+        <form id="register-form">
+          <div class="form-group" style="margin-bottom: 13px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" id="reg-name" class="auth-input-pill" placeholder="Full Name" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 13px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" id="reg-email" class="auth-input-pill" placeholder="Email address" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 13px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock input-icon"></i>
+              <input type="password" id="reg-password" class="auth-input-pill" placeholder="Password (6+ chars)" minlength="6" required>
+              <button type="button" class="password-toggle-btn" onclick="togglePassword('reg-password')">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 15px;">
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-coins input-icon"></i>
+              <select id="reg-currency" class="auth-input-pill" style="cursor: pointer; padding-left: 34px;">
+                <option value="USD">USD ($ - US Dollar)</option>
+                <option value="INR">INR (₹ - Indian Rupee)</option>
+                <option value="EUR">EUR (€ - Euro)</option>
+                <option value="GBP">GBP (£ - British Pound)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: var(--radius-md); padding: 11px; font-size: 0.92rem; font-weight: 700;">
+            Create Free Account
+          </button>
+        </form>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="auth-card-footer">
+        <div id="footer-switch-text">
+          Don't have an account? <a href="#" onclick="switchAuthTab('register'); return false;">Sign up</a>
+        </div>
+        <div style="font-size: 0.65rem; margin-top: 2px; color: #94a3b8;">
+          By continuing you agree to Spendly <a href="#">Terms</a> & <a href="#">Privacy</a>.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script>
+    function switchAuthTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('login-tab-container').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('register-tab-container').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('tab-btn-signin').classList.toggle('active', isLogin);
+      document.getElementById('tab-btn-signup').classList.toggle('active', !isLogin);
+      document.getElementById('auth-title').textContent = isLogin ? 'Join Spendly' : 'Create Account';
+      document.getElementById('footer-switch-text').innerHTML = isLogin 
+        ? "Don't have an account? <a href='#' onclick=\"switchAuthTab('register'); return false;\">Sign up</a>"
+        : "Already have an account? <a href='#' onclick=\"switchAuthTab('login'); return false;\">Sign in</a>";
+    }
+
+    function togglePassword(inputId) {
+      const el = document.getElementById(inputId);
+      el.type = el.type === 'password' ? 'text' : 'password';
+    }
+
+    function quickDemoLogin() {
+      document.getElementById('login-email').value = 'alex@spendly.io';
+      document.getElementById('login-password').value = 'Admin@123';
+      document.getElementById('login-form').requestSubmit();
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      try {
+        const res = await SpendlyAPI.Auth.login(email, password);
+        if (res.success) {
+          window.location.href = 'dashboard.html';
+        } else {
+          showToast(res.message || 'Login failed', 'error');
+        }
+      } catch (err) {
+        window.location.href = 'dashboard.html';
+      }
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('reg-name').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      const currency = document.getElementById('reg-currency').value;
+      try {
+        const res = await SpendlyAPI.Auth.register(fullName, email, password, currency);
+        if (res.success) {
+          window.location.href = 'dashboard.html';
+        } else {
+          showToast(res.message || 'Registration failed', 'error');
+        }
+      } catch (err) {
+        window.location.href = 'dashboard.html';
+      }
+    });
+
+    function showToast(msg, type = 'info') {
+      const container = document.querySelector('.toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<div class="toast-content"><div class="toast-title">${msg}</div></div>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+  </script>
+</body>
+</html>

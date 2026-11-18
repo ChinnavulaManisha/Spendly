@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spendly - Financial Intelligence & Wealth Dashboard</title>
+  <meta name="description" content="Manage personal expenses, budgets, savings goals, and smart financial analytics with Spendly.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Chart.js 4.4 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- ====================================================================
+         LEFT SIDEBAR NAVIGATION
+         ==================================================================== -->
+    <aside class="app-sidebar" id="sidebar">
+      <div>
+        <!-- Brand Logo -->
+        <div class="sidebar-brand">
+          <div class="brand-icon-wrap">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div class="brand-title">Spendly</div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-nav">
+          <a href="#home" class="nav-link active" data-view="home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+          </a>
+          <a href="#overview" class="nav-link" data-view="overview">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#transactions" class="nav-link" data-view="transactions">
+            <i class="fa-solid fa-receipt"></i>
+            <span>Transactions</span>
+          </a>
+          <a href="#budgets" class="nav-link" data-view="budgets">
+            <i class="fa-solid fa-scale-balanced"></i>
+            <span>Budgets</span>
+          </a>
+          <a href="#goals" class="nav-link" data-view="goals">
+            <i class="fa-solid fa-bullseye"></i>
+            <span>Savings Goals</span>
+          </a>
+          <a href="#recurring" class="nav-link" data-view="recurring">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>Recurring Bills</span>
+          </a>
+          <a href="#categories" class="nav-link" data-view="categories">
+            <i class="fa-solid fa-tags"></i>
+            <span>Categories</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Sidebar User Profile Footer -->
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="sidebar-avatar">--</div>
+          <div class="user-info">
+            <div class="user-name" id="sidebar-user-name">Loading...</div>
+            <div class="user-email" id="sidebar-user-email">...</div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary" id="btn-logout" style="width: 100%; border-radius: var(--radius-md);" onclick="logoutUser()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         MAIN CONTENT WRAPPER
+         ==================================================================== -->
+    <main class="app-main">
+
+      <!-- Top Header Bar -->
+      <header class="app-header">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <button type="button" class="btn-icon mobile-menu-btn" id="mobile-toggle" style="display: none;">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="header-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="global-search-input" placeholder="Search transactions, merchants, UPI...">
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <!-- Quick Add Button -->
+          <button type="button" class="btn btn-primary" id="btn-quick-add-tx" onclick="openTxModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Transaction</span>
+          </button>
+
+          <!-- Theme Switcher (Light / Dark Mode) -->
+          <button type="button" class="btn-icon" id="theme-toggle" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Views Container -->
+      <div class="app-content">
+
+        <!-- ====================================================================
+             VIEW 0: HOME PAGE (NEW DEFAULT HOME OVERVIEW)
+             ==================================================================== -->
+        <section class="view-section active" id="view-home">
+          <!-- Welcome Hero with Moving 3D Mascot -->
+          <div class="home-welcome-hero">
+            <div class="home-hero-text">
+              <h2>Welcome back, <span id="home-user-name">User</span>! 👋</h2>
+              <p id="home-hero-desc">Your financial tracker is ready. Log your income and expenses to manage your wealth.</p>
+              <div style="display: flex; gap: 12px; margin-top: 16px;">
+                <button type="button" class="btn" style="background: #ffffff; color: #0d9488; font-weight: 700;" onclick="openTxModal()">
+                  <i class="fa-solid fa-plus"></i> New Transaction
+                </button>
+                <button type="button" class="btn" style="background: rgba(255,255,255,0.2); color: #ffffff;" onclick="switchView('overview')">
+                  <i class="fa-solid fa-chart-line"></i> View Analytics
+                </button>
+              </div>
+            </div>
+            <img src="images/character_laptop.png" alt="Mascot" class="home-hero-char">
+          </div>
+
+          <!-- Quick Action Tiles -->
+          <div class="quick-actions-row">
+            <div class="quick-action-tile" onclick="openTxModal()">
+              <div class="quick-action-icon"><i class="fa-solid fa-receipt"></i></div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">Add Expense</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">Log purchase</div>
+              </div>
+            </div>
+
+            <div class="quick-action-tile" onclick="switchView('budgets')">
+              <div class="quick-action-icon" style="background: rgba(6,182,212,0.15); color: var(--secondary);"><i class="fa-solid fa-scale-balanced"></i></div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">Budgets</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">Manage caps</div>
+              </div>
+            </div>
+
+            <div class="quick-action-tile" onclick="switchView('goals')">
+              <div class="quick-action-icon" style="background: rgba(16,185,129,0.15); color: var(--success);"><i class="fa-solid fa-bullseye"></i></div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">Savings Goals</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">Track targets</div>
+              </div>
+            </div>
+
+            <div class="quick-action-tile" onclick="switchView('categories')">
+              <div class="quick-action-icon" style="background: rgba(245,158,11,0.15); color: #f59e0b;"><i class="fa-solid fa-tags"></i></div>
+              <div>
+                <div style="font-weight: 700; font-size: 0.95rem;">Categories</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">Organize tags</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Home KPI Metrics Row -->
+          <div class="metrics-grid">
+            <div class="glass-panel metric-card">
+              <div class="metric-header">
+                <span class="metric-label">Total Balance</span>
+                <div class="metric-icon-wrap balance"><i class="fa-solid fa-wallet"></i></div>
+              </div>
+              <div class="metric-value" id="home-total-balance">$0.00</div>
+              <div class="metric-sub" id="home-balance-sub"><i class="fa-solid fa-arrow-trend-up" style="color: var(--success);"></i> Net balance</div>
+            </div>
+
+            <div class="glass-panel metric-card income">
+              <div class="metric-header">
+                <span class="metric-label">Monthly Income</span>
+                <div class="metric-icon-wrap income"><i class="fa-solid fa-arrow-down-left"></i></div>
+              </div>
+              <div class="metric-value" id="home-total-income">$0.00</div>
+              <div class="metric-sub" id="home-income-sub">Total earnings</div>
+            </div>
+
+            <div class="glass-panel metric-card expense">
+              <div class="metric-header">
+                <span class="metric-label">Total Expenses</span>
+                <div class="metric-icon-wrap expense"><i class="fa-solid fa-arrow-up-right"></i></div>
+              </div>
+              <div class="metric-value" id="home-total-expense">$0.00</div>
+              <div class="metric-sub" id="home-expense-sub">Total expenses</div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Table on Home -->
+          <div class="glass-panel table-card">
+            <div class="section-header" style="margin-bottom: 14px;">
+              <h3 style="font-size: 1.2rem;">Recent Transactions</h3>
+              <button type="button" class="btn btn-secondary" onclick="switchView('transactions')" style="padding: 6px 14px; font-size: 0.82rem;">
+                View All <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Merchant & Category</th>
+                    <th>Payment Method</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="home-recent-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 1: OVERVIEW DASHBOARD & CHARTS
+             ==================================================================== -->
+        <section class="view-section" id="view-overview">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Analytics & Intelligence</h1>
+              <div class="section-subtitle">Real-time financial breakdown, cashflow trends and smart budget insights.</div>
+            </div>
+          </div>
+
+          <!-- Charts Row 1: Donut & Smart AI Insights -->
+          <div class="dashboard-grid-2">
+            <div class="glass-panel chart-card">
+              <div class="chart-header">
+                <h3><i class="fa-solid fa-chart-column" style="color: var(--primary); margin-right: 8px;"></i>Monthly Cash Flow (Income vs Expenses)</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="cashflowChart"></canvas>
+              </div>
+            </div>
+
+            <div class="glass-panel chart-card">
+              <div class="chart-header">
+                <h3><i class="fa-solid fa-chart-pie" style="color: var(--secondary); margin-right: 8px;"></i>Category Breakdown</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="categoryChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row 2: Rolling Spending Trend -->
+          <div class="glass-panel chart-card" style="margin-bottom: 28px;">
+            <div class="chart-header">
+              <h3><i class="fa-solid fa-wave-square" style="color: var(--accent); margin-right: 8px;"></i>30-Day Rolling Spending Trajectory</h3>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 2: TRANSACTIONS LEDGER
+             ==================================================================== -->
+        <section class="view-section" id="view-transactions">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Transactions Ledger</h1>
+              <div class="section-subtitle">Filter, search, organize, and export your personal expense history.</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button type="button" class="btn btn-secondary" onclick="exportCsv()">
+                <i class="fa-solid fa-file-csv"></i> Export CSV
+              </button>
+              <button type="button" class="btn btn-primary" onclick="openTxModal()">
+                <i class="fa-solid fa-plus"></i> Add Transaction
+              </button>
+            </div>
+          </div>
+
+          <!-- Filters Bar -->
+          <div class="glass-panel filters-bar">
+            <input type="text" id="tx-search" class="filter-input" placeholder="Search merchant or notes..." oninput="filterTransactions()">
+            <select id="tx-type-filter" class="filter-select" onchange="filterTransactions()">
+              <option value="">All Types</option>
+              <option value="EXPENSE">Expenses Only</option>
+              <option value="INCOME">Income Only</option>
+            </select>
+            <select id="tx-method-filter" class="filter-select" onchange="filterTransactions()">
+              <option value="">All Payment Methods</option>
+              <option value="UPI">UPI</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Debit Card">Debit Card</option>
+              <option value="Net Banking">Net Banking</option>
+            </select>
+          </div>
+
+          <!-- Structured Transactions Table -->
+          <div class="glass-panel table-card">
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Merchant & Category</th>
+                    <th>Payment Method</th>
+                    <th>Date & Time</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 3: BUDGETS
+             ==================================================================== -->
+        <section class="view-section" id="view-budgets">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Monthly Budgets</h1>
+              <div class="section-subtitle">Set category thresholds to prevent overspending.</div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="openBudgetModal()">
+              <i class="fa-solid fa-plus"></i> Set New Budget
+            </button>
+          </div>
+          <div class="cards-grid-3" id="budgets-grid"></div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 4: SAVINGS GOALS
+             ==================================================================== -->
+        <section class="view-section" id="view-goals">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Savings Goals</h1>
+              <div class="section-subtitle">Track targets and simulate adding funds to your milestones.</div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="openGoalModal()">
+              <i class="fa-solid fa-plus"></i> Create New Goal
+            </button>
+          </div>
+          <div class="cards-grid-3" id="goals-grid"></div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 5: RECURRING SUBSCRIPTIONS
+             ==================================================================== -->
+        <section class="view-section" id="view-recurring">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Recurring Bills & Subscriptions</h1>
+              <div class="section-subtitle">Track active AutoPay commitments and renewal dates.</div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="openRecurringModal()">
+              <i class="fa-solid fa-plus"></i> Add Subscription
+            </button>
+          </div>
+          <div class="cards-grid-3" id="recurring-grid"></div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 6: CATEGORIES
+             ==================================================================== -->
+        <section class="view-section" id="view-categories">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Expense & Income Categories</h1>
+              <div class="section-subtitle">Manage system categories and create custom tags.</div>
+            </div>
+          </div>
+          <div class="cards-grid-3" id="categories-grid"></div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Transaction Modal -->
+  <div class="modal-overlay" id="tx-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="tx-modal-title">Add Transaction</h3>
+        <button type="button" class="btn-icon" onclick="closeModals()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="tx-form">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Type</label>
+            <select id="modal-tx-type" class="auth-input-pill" style="padding-left: 14px;">
+              <option value="EXPENSE">Expense</option>
+              <option value="INCOME">Income</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 700;">Amount ($)</label>
+            <input type="number" step="0.01" id="modal-tx-amount" class="auth-input-pill" placeholder="0.00" style="padding-left: 14px;" required>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 0.8rem; font-weight: 700;">Merchant / Source</label>
+          <input type="text" id="modal-tx-merchant" class="auth-input-pill" placeholder="e.g. Starbucks, Uber, Salary" style="padding-left: 14px;" required>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 0.8rem; font-weight: 700;">Category</label>
+          <select id="modal-tx-category" class="auth-input-pill" style="padding-left: 14px;"></select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 0.8rem; font-weight: 700;">Payment Method</label>
+          <select id="modal-tx-method" class="auth-input-pill" style="padding-left: 14px;">
+            <option value="UPI">UPI</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Net Banking">Net Banking</option>
+            <option value="Cash">Cash</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="width: 100%; border-radius: var(--radius-md); padding: 12px;">
+          Save Transaction
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
