@@ -1,6 +1,6 @@
 # Spendly - Personal Expense Tracker & Budget Management System
 
-Spendly is a modern full-stack personal finance and wealth management web application designed to track daily expenses, visualize cash flow, set spending budgets, monitor savings goals, and manage subscriptions with real-time financial intelligence.
+Spendly is a web-based personal finance management application that helps users track their income and expenses by manually entering their daily transactions. It allows users to categorize transactions, manage monthly budgets, set savings goals, monitor recurring bills, and view detailed financial summaries through an interactive dashboard. The platform provides spending analytics and transaction history, helping users understand their spending habits, manage their money effectively, and make better financial decisions.
 
 ---
 
@@ -8,12 +8,14 @@ Spendly is a modern full-stack personal finance and wealth management web applic
 
 #### Landing & Authentication Page
 <p align="center">
-  <img src="WebContent/images/landing_hero_3d.png" alt="Spendly Landing" width="700">
+ <img width="1917" height="1078" alt="image" src="https://github.com/user-attachments/assets/cb41d612-3d63-44ec-8c3a-ea0bc7e4624e" />
+
 </p>
 
 #### Dashboard & Analytics Overview
 <p align="center">
-  <img src="WebContent/images/character_laptop.png" alt="Spendly Character Mascot" width="220">
+  <img width="1916" height="1078" alt="image" src="https://github.com/user-attachments/assets/7e5e51e1-21c6-4375-9af5-962cb5c708d8" />
+
 </p>
 
 ---
